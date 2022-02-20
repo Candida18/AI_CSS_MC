@@ -1,5 +1,6 @@
-import streamlit as st
+## View app : https://share.streamlit.io/candida18/ai_css_mc/main/CryptographyandSystemSecurity/product_cipher.py
 
+import streamlit as st
 
 # This function generates the key in a cyclic manner until it's length isn't equal to the length of original text
 
