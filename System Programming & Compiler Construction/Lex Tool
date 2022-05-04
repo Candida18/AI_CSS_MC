@@ -1,0 +1,144 @@
+/*sudo apt install flex      # version 2.6.4-6.2, or
+sudo apt install flex-old  # version 2.5.4a-10ubuntu2*/
+
+/*lex filename.l
+cc lex.yy.c
+./a.out */
+
+
+/*Program to count the number of vowels and constants from the input string.*/
+
+%{
+#include<stdio.h>
+int vowel = 0;
+int cons = 0;
+%}
+%%
+[aeiou] {vowel++;}
+[a-zA-Z] {cons++;}
+%%
+int yywrap()
+{}
+int main()
+{
+printf("Enter a String .... press^d ");
+yylex();
+printf("Number of vowels = %d and Number of constants = %d\n",vowel, cons);
+return 0;
+}
+
+/*Program to count the number of positive integers, negative integers, positive fractions,negative fractions from the given input string.*/
+
+%{
+#include<stdio.h>
+int posint = 0;
+int negint = 0;
+int posfrac = 0;
+int negfrac = 0;
+%}
+%%
+[-][0-9]+ {negint++;}
+[+]?[0-9]+ {posint++;}
+[+]?[0-9]*\.[0-9]+ {posfrac++;}
+[-][0-9]*\.[0-9]+ {negfrac++;}
+%%
+int yywrap()
+{
+}
+int main()
+{
+printf("Enter a String .... press^d ");
+yylex();
+printf("Number of Positive integers = %d \n Number of Negative Integers = %d\n Number of Positive Fractions = %d\n Number of Negative Fractions = %d\n", posint, negint, posfrac, negfrac);
+return 0;
+}
+
+/*Program to count the number of words, blank spaces and lines from the given input.*/
+%{
+#include<stdio.h>
+int word=0;
+int blank=0;
+int line=0;
+%}
+%%
+[^ \n\t]+ {word++;}
+[ ] {blank++;}
+[\n] {line++;}
+%%
+int yywrap()
+{
+}
+int main(){
+printf("enter the string : press ^d ");
+yylex();
+printf("\n Number of words=%d\n Number of Blank spaces =%d\n Number of lines=%d\n", word, blank, line);
+return 0;
+}
+
+/*Program to check whether the given expression id valid or no and to count the number
+of operators and operands.*/
+%{
+#include<stdio.h>
+int opd=0;
+int opr=0;
+int n=0;
+%}
+%%
+[\+\-\*\/] {opr++;}
+[a-z A-Z]+ {opd++;}
+[0-9]+ {opd++;}
+[a-zA-Z]+\+\-\*\/[a-zA-Z]+ {n=0;}
+[0-9]+\+\-\*\/[0-9]+ {n=0;}
+%%
+int yywrap()
+{
+}
+int main(){
+printf("enter a number : press ^d ");
+yylex();
+if((n==0) && (opd==opr+1))
+printf("Valid Expression.");
+else
+printf("Invalid expression\n");
+printf("Number of operators= %d\n Number of operands= %d\n ", opr, opd);
+return 0;
+}
+
+
+/*Program to count the number of identifiers, keywords, operators, special symbols and
+constants.*/
+%{
+#include<stdio.h>
+int identifier = 0;
+int keyword = 0;
+int operator = 0;
+int specsymbl = 0;
+int constant = 0;
+%}
+%%
+[a-zA-Z]+ {identifier++;}
+[\int\float\char\double\ifelse\goto]+ {keyword++;}
+[\+\-\*\/]+ {operator++;}
+[\@\#\$\^]+ {specsymbl++;}
+[0-9]+ {constant++;}
+%%
+int yywrap()
+{
+}
+int main()
+{
+printf("Enter an Expression .... press^d ");
+yylex();
+printf("Number of identifiers = %d \n Number of keyword = %d\n Number of operators = %d\n Number ofspecial symbols = %d\n Number of constants = %d\n", identifier, keyword, operator, specsymbl, constant);
+return 0;
+}
+
+/*
+ int ^ + _ 3 A
+ _
+Number of identifiers = 2
+Number of keyword = 0
+Number of operators = 1
+Number of special symbols = 1
+Number of constants = 1
+*/
